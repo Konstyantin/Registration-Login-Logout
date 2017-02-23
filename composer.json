@@ -1,0 +1,16 @@
+{
+    "name": "root/html",
+    "authors": [
+        {
+            "name": "kostya",
+            "email": "kostya_nagula@mail.ua"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Acme\\": "src/",
+            "App\\": "app/"
+        }
+    }
+}
