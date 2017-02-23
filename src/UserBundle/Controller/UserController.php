@@ -6,10 +6,14 @@
  * Date: 23.02.17
  * Time: 19:19
  */
-class UserController
+
+use App\Controller;
+
+class UserController extends Controller
 {
     public function registerAction()
     {
-        echo 'register';
+
+        $this->render('login');
     }
 }

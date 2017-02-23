@@ -58,7 +58,7 @@ class Router
                     $uri = substr(strstr($uri, '/'), 1);
                 }
 
-                return $this->defineComponents($uriPattern, $path, $uri);
+                $this->defineComponents($uriPattern, $path, $uri);
             }
         }
     }
