@@ -39,7 +39,9 @@ abstract class Controller
     {
         $path = ROOT . '/src/UserBundle/View/' . $view . '.phtml';
         if (file_exists($path)) {
-            return require_once($path);
+            require_once (ROOT . '/app/layout/header.phtml');
+            require_once($path);
+            require_once (ROOT . '/app/layout/footer.phtml');
         }
     }
 }
