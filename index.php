@@ -2,7 +2,7 @@
 
 use App\Router;
 use App\Db;
-
+use App\Session;
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -16,4 +16,7 @@ $route->run();
 
 Db::connect();
 
+$session = new Session();
+
+$session->start();
 ?>
