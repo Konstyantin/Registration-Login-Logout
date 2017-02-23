@@ -7,5 +7,5 @@
  */
 
 return [
-
+    'register' => 'user/register'
 ];
