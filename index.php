@@ -1,6 +1,7 @@
 <?php
 
 use App\Router;
+use App\Db;
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
@@ -13,6 +14,6 @@ define('ROOT', dirname(__FILE__));
 $route = new Router();
 $route->run();
 
-
+Db::connect();
 
 ?>
