@@ -52,11 +52,11 @@ class User
     /**
      * Get user by $email and login
      *
-     * @param $email
-     * @param $login
+     * @param string $email
+     * @param string $login
      * @return mixed
      */
-    public static function getUserByEmailLogin($email, $login)
+    public static function getUserByEmailLogin(string $email, string $login)
     {
         $db = Db::connect();
 
@@ -97,13 +97,12 @@ class User
     /**
      * Login user by login or email
      *
-     * @param $data
+     * @param string $data
      * @param $password
      * @return mixed
      */
-    public static function login($data, $password)
+    public static function login(string $data, $password)
     {
-
         $db = Db::connect();
 
         $sql = 'SELECT email FROM users WHERE login = :data OR email = :data AND password = :password';
@@ -117,5 +116,26 @@ class User
         $user = $result->fetch();
 
         return $user;
+    }
+
+
+    /**
+     * Get user by $email
+     *
+     * @param string $email
+     * @return mixed
+     */
+    public static function getUserByEmail(string $email)
+    {
+        $db = Db::connect();
+
+        $sql = "SELECT email, name FROM users WHERE email = :email";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email, PDO::PARAM_STR);
+
+        $result->execute();
+
+        return $result->fetch();
     }
 }

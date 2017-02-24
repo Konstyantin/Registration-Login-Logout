@@ -38,6 +38,7 @@ class UserController extends Controller
             $form->checkPassword();
             $form->checkEmail();
             $form->checkName();
+            $form->checkCondition();
 
             if ($form->getErrors() === null) {
 
@@ -48,7 +49,7 @@ class UserController extends Controller
 
                 if (!$user) {
                     $name = $_POST['name'];
-                    $password = $_POST['password'];
+                    $password = md5($_POST['password']);
                     $country = $_POST['country'];
                     $conditions = $_POST['conditions'];
 
@@ -84,14 +85,20 @@ class UserController extends Controller
 
         $form = new LoginForm();
 
+        /**
+         * Check is submitted form
+         */
         if($form->isSubmit()) {
             $form->checkData();
             $form->checkPassword();
 
+            /**
+             * Get errors if it exists
+             */
             if($form->getErrors() === null) {
 
                 $data = $_POST['data'];
-                $password = $_POST['password'];
+                $password = md5($_POST['password']);
 
                 $user = User::login($data, $password);
 
@@ -113,7 +120,15 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        $user = User::checkLogged();
+        if (!User::checkLogged()) {
+            $this->redirect('/login');
+        }
+
+        $userEmail = User::checkLogged();
+
+        $user = User::getUserByEmail($userEmail);
+
+        return $this->render('/index', $user);
     }
 
     /**

@@ -100,6 +100,20 @@ class RegisterForm
     }
 
     /**
+     * Check valid name form field
+     *
+     * @return bool
+     */
+    public function checkCondition()
+    {
+        if (isset($_POST['conditions'])) {
+            return true;
+        }
+
+        $this->errors[] = 'Conditions not valid';
+    }
+
+    /**
      * Get errors
      *
      * @return array
