@@ -13,7 +13,11 @@ class UserController extends Controller
 {
     public function registerAction()
     {
+        return $this->render('register');
+    }
 
-        $this->render('login');
+    public function loginAction()
+    {
+        return $this->render('login');
     }
 }

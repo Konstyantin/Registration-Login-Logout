@@ -7,5 +7,6 @@
  */
 
 return [
-    'register' => 'user/register'
+    'register' => 'user/register',
+    'login' => 'user/login',
 ];
