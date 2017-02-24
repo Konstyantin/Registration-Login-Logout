@@ -19,7 +19,7 @@ class Session
     /**
      * Session start
      */
-    public function start()
+    public static function start()
     {
         if (session_status() == 1) {
             session_start();
@@ -32,7 +32,7 @@ class Session
      * @param string $key
      * @param $value
      */
-    public function set(string $key, $value)
+    public static function set(string $key, $value)
     {
         $_SESSION[$key] = $value;
     }
@@ -43,9 +43,9 @@ class Session
      * @param string $key
      * @return bool
      */
-    public function get(string $key)
+    public static function get(string $key)
     {
-        if ($this->checkExists($key)) {
+        if (self::checkExists($key)) {
             return $_SESSION[$key];
         }
         return false;
@@ -57,7 +57,7 @@ class Session
      * @param string $key
      * @return bool
      */
-    public function checkExists(string $key)
+    public static function checkExists(string $key)
     {
         return ($_SESSION[$key]) ? true : false;
     }
@@ -67,9 +67,9 @@ class Session
      *
      * @param string $key
      */
-    public function delete(string $key)
+    public static function delete(string $key)
     {
-        if ($this->checkExists($key)) {
+        if (self::checkExists($key)) {
             unset($_SESSION[$key]);
         }
     }
@@ -77,7 +77,7 @@ class Session
     /**
      * Destroy session if it exists
      */
-    public function destroy()
+    public static function destroy()
     {
         if (session_status() == 2) {
             session_destroy();
