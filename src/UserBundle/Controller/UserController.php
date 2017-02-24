@@ -11,10 +11,14 @@ use App\Controller;
 use Acme\UserBundle\Model\Country;
 use Acme\UserBundle\Model\User;
 use Acme\UserBundle\Model\RegisterForm;
+use Acme\UserBundle\Model\LoginForm;
+use App\Session;
 
+/**
+ * Class UserController
+ */
 class UserController extends Controller
 {
-
     /**
      * Registration user
      *
@@ -36,7 +40,6 @@ class UserController extends Controller
             $form->checkName();
 
             if ($form->getErrors() === null) {
-                echo 'form is valid';
 
                 $email = $_POST['email'];
                 $login = $_POST['login'];
@@ -57,6 +60,7 @@ class UserController extends Controller
                 }
             }
         }
+
         $countries = Country::getCountryList();
 
         $errors = $form->getErrors();
@@ -64,16 +68,64 @@ class UserController extends Controller
         return $this->render('register', ['countries' => $countries, 'errors' => $errors]);
     }
 
+    /**
+     * Login user
+     *
+     * @return mixed
+     */
     public function loginAction()
     {
+        /**
+         * Check user is logged
+         */
         if (User::checkLogged()) {
             $this->redirect('/index');
         }
-        return $this->render('login');
+
+        $form = new LoginForm();
+
+        if($form->isSubmit()) {
+            $form->checkData();
+            $form->checkPassword();
+
+            if($form->getErrors() === null) {
+
+                $data = $_POST['data'];
+                $password = $_POST['password'];
+
+                $user = User::login($data, $password);
+
+                $email = $user['email'];
+
+                User::auth($email);
+
+                $this->redirect('/index');
+            }
+        }
+
+        $errors = $form->getErrors();
+
+        return $this->render('login', $errors);
     }
 
+    /**
+     * Index it is main page
+     */
     public function indexAction()
     {
         $user = User::checkLogged();
+    }
+
+    /**
+     * Logout User and redirect to login
+     */
+    public function logoutAction()
+    {
+        $user = User::checkLogged();
+        if ($user) {
+            Session::delete('user');
+
+            $this->redirect('/login');
+        }
     }
 }

@@ -60,7 +60,7 @@ class User
     {
         $db = Db::connect();
 
-        $sql = "SELECT * FROM users WHERE email = :email AND login = :login";
+        $sql = "SELECT email FROM users WHERE email = :email AND login = :login";
 
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
@@ -68,9 +68,8 @@ class User
 
         $result->execute();
 
-        $user = $result->fetch();
+        return $result->fetch();
 
-        return $user;
     }
 
     /**
@@ -93,5 +92,30 @@ class User
         if (Session::get('user')) {
             return Session::get('user');
         }
+    }
+
+    /**
+     * Login user by login or email
+     *
+     * @param $data
+     * @param $password
+     * @return mixed
+     */
+    public static function login($data, $password)
+    {
+
+        $db = Db::connect();
+
+        $sql = 'SELECT email FROM users WHERE login = :data OR email = :data AND password = :password';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':data', $data, PDO::PARAM_STR);
+        $result->bindParam(':password', $password, PDO::PARAM_STR);
+
+        $result->execute();
+
+        $user = $result->fetch();
+
+        return $user;
     }
 }

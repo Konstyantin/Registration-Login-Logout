@@ -6,8 +6,12 @@
  * Time: 18:21
  */
 
+/**
+ * Route list
+ */
 return [
     'register' => 'user/register',
     'login' => 'user/login',
     'index' => 'user/index',
+    'logout' => 'user/logout',
 ];

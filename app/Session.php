@@ -59,7 +59,11 @@ class Session
      */
     public static function checkExists(string $key)
     {
-        return ($_SESSION[$key]) ? true : false;
+        if (isset($_SESSION[$key])) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

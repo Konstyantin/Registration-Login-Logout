@@ -2,10 +2,17 @@
     <div class="row clearfix">
         <div class="col-lg-6 col-lg-offset-3">
             <h2 class="text-center">Login Form</h2>
+            <?php if (isset($data)):?>
+                <div class="alert alert-danger">
+                    <?php foreach ($data as $error):?>
+                        <p><?php echo $error;?></p>
+                    <?php endforeach;?>
+                </div>
+            <?php endif?>
             <form action="#" method="post">
                 <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" name="email" class="form-control" id="email">
+                    <label for="email">Email or Login:</label>
+                    <input type="text" name="data" class="form-control" id="email">
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
