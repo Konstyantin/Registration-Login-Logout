@@ -27,7 +27,7 @@ class UserController extends Controller
     public function registerAction()
     {
         if (User::checkLogged()) {
-            return $this->redirect('/index');
+            return $this->redirect('index');
         }
 
         $form = new RegisterForm();
@@ -57,7 +57,7 @@ class UserController extends Controller
 
                     User::auth($email);
 
-                    $this->redirect('/index');
+                    $this->redirect('index');
                 }
             }
         }
@@ -80,7 +80,7 @@ class UserController extends Controller
          * Check user is logged
          */
         if (User::checkLogged()) {
-            $this->redirect('/index');
+            $this->redirect('index');
         }
 
         $form = new LoginForm();
@@ -106,7 +106,7 @@ class UserController extends Controller
 
                 User::auth($email);
 
-                $this->redirect('/index');
+                $this->redirect('index');
             }
         }
 
@@ -121,14 +121,14 @@ class UserController extends Controller
     public function indexAction()
     {
         if (!User::checkLogged()) {
-            $this->redirect('/login');
+            $this->redirect('login');
         }
 
         $userEmail = User::checkLogged();
 
         $user = User::getUserByEmail($userEmail);
 
-        return $this->render('/index', $user);
+        return $this->render('index', $user);
     }
 
     /**
@@ -140,7 +140,7 @@ class UserController extends Controller
         if ($user) {
             Session::delete('user');
 
-            $this->redirect('/login');
+            $this->redirect('login');
         }
     }
 }

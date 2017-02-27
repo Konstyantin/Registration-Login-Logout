@@ -54,9 +54,9 @@ class Router
 
             if (preg_match("~$uriPattern~", $uri)) {
 
-                if ($uriPattern !== $uri) {
-                    $uri = substr(strstr($uri, '/'), 1);
-                }
+                $pos = strpos($uri, $uriPattern);
+
+                $uri = substr($uri, $pos);
 
                 $this->defineComponents($uriPattern, $path, $uri);
             }

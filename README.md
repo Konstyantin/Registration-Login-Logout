@@ -24,3 +24,10 @@ Install composer dependencies with the following command:
 ```
 php composer.phar install
 ```
+
+Install bower dependencies with the following command:
+```
+cd assert/
+
+bower install bootstrap
+```
